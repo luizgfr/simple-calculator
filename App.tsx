@@ -34,7 +34,7 @@ export default function App() {
       {buttons.map((row: string[], rowIndex: number) => (
         <View key={rowIndex} style={styles.row}>
           {row.map((btn: string) => (
-            <Button key={btn} label={btn} onPress={() => handlePress(btn)} />
+            <Button key={btn} title={btn} onPress={() => handlePress(btn)} />
           ))}
         </View>
       ))}
@@ -48,7 +48,13 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#000', justifyContent: 'flex-end' },
   display: { padding: 20, alignItems: 'flex-end' },
   input: { color: '#fff', fontSize: 36 },
-  result: { color: '#888', fontSize: 28 },
+  result: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#FFA726',
+    textAlign: 'right',
+    marginBottom: 20,
+  },  
   buttonsContainer: { padding: 10 },
   row: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 },
 });

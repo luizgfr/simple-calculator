@@ -1,15 +1,33 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-interface Props {
-  label: string;
+interface ButtonProps {
+  title: string;
   onPress: () => void;
 }
 
-const Button: React.FC<Props> = ({ label, onPress }) => {
+const Button = ({ title, onPress }: ButtonProps) => {
+  const isOperator = ['/', '*', '-', '+'].includes(title);
+  const isSpecial = ['=', '.'].includes(title);
+
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.text}>{label}</Text>
+    <TouchableOpacity
+      style={[
+        styles.button,
+        isOperator && styles.operatorButton,
+        isSpecial && styles.specialButton,
+        title === 'C' && styles.clearButton,
+      ]}
+      onPress={onPress}
+    >
+      <Text
+        style={[
+          styles.buttonText,
+          (isOperator || isSpecial) && styles.coloredText,
+        ]}
+      >
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -17,16 +35,29 @@ const Button: React.FC<Props> = ({ label, onPress }) => {
 const styles = StyleSheet.create({
   button: {
     flex: 1,
-    backgroundColor: '#222',
-    margin: 5,
-    height: 70,
+    margin: 8,
+    backgroundColor: '#f1f1f1',
     borderRadius: 10,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
+    height: 70,
   },
-  text: {
-    fontSize: 28,
+  buttonText: {
+    fontSize: 24,
+    color: '#333',
+  },
+  coloredText: {
     color: '#fff',
+    fontWeight: 'bold',
+  },
+  operatorButton: {
+    backgroundColor: '#2B6F81',
+  },
+  specialButton: {
+    backgroundColor: '#FFA726',
+  },
+  clearButton: {
+    backgroundColor: '#D64B41',
   },
 });
 
